@@ -8,6 +8,3 @@ cd neovim && make CMAKE_BUILD_YPE=RelWithDebInfo
 make install
 
 mv ./build/bin/nvim /usr/bin/nvim
-
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim

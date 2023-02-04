@@ -64,9 +64,12 @@ require("lazy").setup({
         'theprimeagen/harpoon'
     },
     {
-        "folke/zen-mode.nvim"
+        'folke/zen-mode.nvim'
     },
     {
-        "github/copilot.vim"
+        'github/copilot.vim'
+    },
+    {
+        'j-hui/fidget.nvim'
     }
 })
