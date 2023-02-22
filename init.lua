@@ -12,8 +12,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
 require("lazy").setup({
     { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = true, priority = 1000 },
@@ -28,8 +28,8 @@ require("lazy").setup({
         dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
     {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = { { 'nvim-web-devicons' } }
+        'nvim-neo-tree/neo-tree.nvim',
+        dependencies = { { 'nvim-lua/plenary.nvim' }, { 'MunifTanjim/nui.nvim' }, { 'nvim-tree/nvim-web-devicons' } }
     },
     {
         'nvim-telescope/telescope.nvim',
