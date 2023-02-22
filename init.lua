@@ -14,6 +14,17 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup({
+    { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = true, priority = 1000 },
+    {
+        'glepnir/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('dashboard').setup {
+                -- config
+            }
+        end,
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+    },
     {
         'nvim-telescope/telescope.nvim',
         version = '0.1.1',
@@ -21,16 +32,12 @@ require("lazy").setup({
     },
     {
         'nvim-treesitter/nvim-treesitter',
-        build = function ()
+        build = function()
             vim.cmd([[TSUpdate]])
         end
     },
     {
         'nvim-treesitter/playground'
-    },
-    {
-        'rose-pine/neovim',
-        name = 'rose-pine',
     },
     {
         'mbbill/undotree'
