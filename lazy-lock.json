@@ -17,6 +17,7 @@
   "moonfly": { "branch": "master", "commit": "b3adb72a1bd81178cc3b45337dba3aa797bd2e82" },
   "nvim-cmp": { "branch": "main", "commit": "ba7a53478d0726683d1597ad1e814695033dcb4b" },
   "nvim-lspconfig": { "branch": "master", "commit": "91998cef4b1ae3a624901d0f9c894409db24e760" },
+  "nvim-tree.lua": { "branch": "master", "commit": "9c97e6449b0b0269bd44e1fd4857184dfa57bb4c" },
   "nvim-treesitter": { "branch": "master", "commit": "ba35d094c1dfffa652e9c20971c51bd5271c1d25" },
   "nvim-web-devicons": { "branch": "master", "commit": "4709a504d2cd2680fb511675e64ef2790d491d36" },
   "playground": { "branch": "master", "commit": "4044b53c4d4fcd7a78eae20b8627f78ce7dc6f56" },
