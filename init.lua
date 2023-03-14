@@ -28,10 +28,6 @@ require("lazy").setup({
         dependencies = { { 'nvim-tree/nvim-web-devicons' } }
     },
     {
-        'nvim-neo-tree/neo-tree.nvim',
-        dependencies = { { 'nvim-lua/plenary.nvim' }, { 'MunifTanjim/nui.nvim' }, { 'nvim-tree/nvim-web-devicons' } }
-    },
-    {
         'nvim-telescope/telescope.nvim',
         version = '0.1.1',
         dependencies = { { 'nvim-lua/plenary.nvim' } }
@@ -78,5 +74,8 @@ require("lazy").setup({
     },
     {
         'j-hui/fidget.nvim'
+    },
+    {
+        'ThePrimeagen/harpoon'
     }
 })
