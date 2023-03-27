@@ -1,7 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<C-n>", "<cmd>NeoTreeFocus<CR>")
-vim.keymap.set("n", "<leader>n", "<cmd>NeoTreeFocusToggle<CR>")
-vim.keymap.set("n", "<C-e>", "<cmd>NeoTreeFocus buffers<CR>")
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
