@@ -39,6 +39,9 @@ require("lazy").setup({
         end
     },
     {
+        'nvim-treesitter/nvim-treesitter-context'
+    },
+    {
         'nvim-treesitter/playground'
     },
     {
