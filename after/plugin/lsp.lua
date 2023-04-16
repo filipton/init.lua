@@ -27,6 +27,10 @@ local cmp = require('cmp')
 local cmp_action = require('lsp-zero').cmp_action()
 
 cmp.setup({
+    sources = {
+        { name = 'copilot' },
+        { name = 'nvim_lsp' },
+    },
     mapping = {
         -- `Enter` key to confirm completion
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
