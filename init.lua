@@ -71,9 +71,9 @@ require("lazy").setup({
             { 'L3MON4D3/LuaSnip' },     -- Required
         }
     },
-    --{
-    --    'github/copilot.vim'
-    --},
+    {
+        'github/copilot.vim'
+    },
     {
         'j-hui/fidget.nvim'
     },
@@ -87,24 +87,5 @@ require("lazy").setup({
             require("trouble").setup {
             }
         end
-    },
-    {
-        'zbirenbaum/copilot.lua',
-        config = function()
-            require('copilot').setup({
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-                filetypes = {
-                    ["*"] = true,
-                }
-            })
-        end,
-    },
-    {
-        'zbirenbaum/copilot-cmp',
-        dependencies = { 'zbirenbaum/copilot.lua' },
-        config = function()
-            require("copilot_cmp").setup({})
-        end,
     }
 })
