@@ -4,7 +4,7 @@ lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
 end)
 
-lsp.setup_servers({ 'tsserver', 'rust_analyzer', 'csharp_ls', 'lua_ls' })
+lsp.ensure_installed({ 'tsserver', 'rust_analyzer', 'csharp_ls', 'lua_ls', 'html', 'tailwindcss', 'svelte', 'clangd', 'docker_compose_language_service', 'dockerls' })
 
 -- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
