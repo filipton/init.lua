@@ -30,7 +30,14 @@ require("lazy").setup({
     {
         'nvim-telescope/telescope.nvim',
         version = '0.1.1',
-        dependencies = { { 'nvim-lua/plenary.nvim' } }
+        dependencies = { { 'nvim-lua/plenary.nvim' } },
+        config = function ()
+            require("telescope").setup({
+                defaults = {
+                    file_ignore_patterns = { "node_modules/", ".git/", "target/" },
+                }
+            })
+        end
     },
     {
         'nvim-treesitter/nvim-treesitter',
