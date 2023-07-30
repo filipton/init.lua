@@ -58,24 +58,26 @@ require("lazy").setup({
         'tpope/vim-fugitive'
     },
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'dev-v3',
-        dependencies = {
-            -- LSP Support
-            { 'neovim/nvim-lspconfig' }, -- Required
-            {
-                -- Optional
-                'williamboman/mason.nvim',
-                build = function()
-                    pcall(vim.cmd, 'Lazy update')
-                end,
-            },
-            { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+        { 'VonHeikemen/lsp-zero.nvim', branch = 'dev-v3' },
 
-            -- Autocompletion
-            { 'hrsh7th/nvim-cmp' },     -- Required
-            { 'hrsh7th/cmp-nvim-lsp' }, -- Required
-            { 'L3MON4D3/LuaSnip' },     -- Required
+        --- Uncomment these if you want to manage LSP servers from neovim
+        {'williamboman/mason.nvim'},
+        {'williamboman/mason-lspconfig.nvim'},
+
+        -- LSP Support
+        {
+            'neovim/nvim-lspconfig',
+            dependencies = {
+                { 'hrsh7th/cmp-nvim-lsp' },
+            },
+        },
+
+        -- Autocompletion
+        {
+            'hrsh7th/nvim-cmp',
+            dependencies = {
+                { 'L3MON4D3/LuaSnip' },
+            }
         }
     },
     {
