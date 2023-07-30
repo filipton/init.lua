@@ -31,7 +31,7 @@ require("lazy").setup({
         'nvim-telescope/telescope.nvim',
         version = '0.1.1',
         dependencies = { { 'nvim-lua/plenary.nvim' } },
-        config = function ()
+        config = function()
             require("telescope").setup({
                 defaults = {
                     file_ignore_patterns = { "node_modules/", ".git/", "target/" },
@@ -59,7 +59,7 @@ require("lazy").setup({
     },
     {
         'VonHeikemen/lsp-zero.nvim',
-        branch = 'v2.x',
+        branch = 'dev-v3',
         dependencies = {
             -- LSP Support
             { 'neovim/nvim-lspconfig' }, -- Required
@@ -85,14 +85,27 @@ require("lazy").setup({
         'j-hui/fidget.nvim'
     },
     {
+        'nvim-lualine/lualine.nvim',
+        -- event = { 'VimEnter' },
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+        }
+    },
+    {
+        'linrongbin16/lsp-progress.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require('lsp-progress').setup()
+        end
+    },
+    {
         'ThePrimeagen/harpoon'
     },
     {
         'folke/trouble.nvim',
         requires = 'nvim-tree/nvim-web-devicons',
         config = function()
-            require("trouble").setup {
-            }
+            require("trouble").setup({})
         end
     }
 })
