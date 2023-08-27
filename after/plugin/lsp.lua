@@ -8,10 +8,11 @@ lsp.extend_cmp()
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'tsserver', 'rust_analyzer', 'csharp_ls', 'lua_ls', 'html', 'tailwindcss', 'svelte', 'clangd', 'docker_compose_language_service', 'dockerls' },
+    ensure_installed = { 'tsserver', 'rust_analyzer', 'csharp_ls', 'html', 'tailwindcss', 'svelte', 'clangd',
+        'docker_compose_language_service', 'dockerls' },
     handlers = {
         lsp.default_setup,
-        lua_ls = function () 
+        lua_ls = function()
             require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
         end,
     },
