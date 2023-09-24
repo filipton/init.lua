@@ -6,6 +6,16 @@ end)
 
 lsp.extend_cmp()
 
+local function setupArduinoLsp()
+    require('lspconfig').arduino_language_server.setup {
+        cmd = {
+            "arduino-language-server",
+            "-cli-config", "/home/notpilif/.arduino15/arduino-cli.yaml",
+            "-fqbn", "rp2040:rp2040:rpipico",
+        }
+    }
+end
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = { 'tsserver', 'rust_analyzer', 'csharp_ls', 'html', 'tailwindcss', 'svelte', 'clangd',
@@ -14,6 +24,11 @@ require('mason-lspconfig').setup({
         lsp.default_setup,
         lua_ls = function()
             require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+        end,
+        arduino_language_server = function()
+            if vim.fn.executable('arduino-language-server') == 1 then
+                setupArduinoLsp()
+            end
         end,
     },
 })
