@@ -7,11 +7,18 @@ end)
 lsp.extend_cmp()
 
 local function setupArduinoLsp()
+    local fqbnpath = vim.fn.getcwd() .. '/FQBN'
+    local fqbn = vim.fn.filereadable(fqbnpath) == 1 and vim.fn.readfile(fqbnpath)[1] or nil
+
+    if fqbn == nil then
+        return
+    end
+
     require('lspconfig').arduino_language_server.setup {
         cmd = {
             "arduino-language-server",
-            "-cli-config", "/home/notpilif/.arduino15/arduino-cli.yaml",
-            "-fqbn", "rp2040:rp2040:rpipico",
+            "-cli-config", "~/.arduino15/arduino-cli.yaml",
+            "-fqbn", fqbn,
         }
     }
 end
