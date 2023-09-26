@@ -25,7 +25,7 @@ end
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = { 'tsserver', 'rust_analyzer', 'csharp_ls', 'html', 'tailwindcss', 'svelte', 'clangd',
+    ensure_installed = { 'tsserver', 'rust_analyzer', 'html', 'tailwindcss', 'svelte', 'clangd',
         'docker_compose_language_service', 'dockerls' },
     handlers = {
         lsp.default_setup,
