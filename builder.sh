@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen 
-sudo pacman --needed --noconfirm -S base-devel cmake unzip ninja tree-sitter curl
+sudo apt install -y ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen ripgrep
+sudo pacman --needed --noconfirm -S base-devel cmake unzip ninja tree-sitter curl ripgrep
 
 sudo rm -f /usr/local/lib/nvim/parser/*
 
