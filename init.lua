@@ -41,7 +41,9 @@ require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter',
         build = function()
-            vim.cmd([[TSUpdate]])
+            -- vim.cmd([[TSUpdate]])
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
         end
     },
     {
@@ -57,27 +59,13 @@ require("lazy").setup({
         'tpope/vim-fugitive'
     },
     {
-        { 'VonHeikemen/lsp-zero.nvim', branch = 'dev-v3' },
-
-        --- Uncomment these if you want to manage LSP servers from neovim
-        {'williamboman/mason.nvim'},
-        {'williamboman/mason-lspconfig.nvim'},
-
-        -- LSP Support
-        {
-            'neovim/nvim-lspconfig',
-            dependencies = {
-                { 'hrsh7th/cmp-nvim-lsp' },
-            },
-        },
-
-        -- Autocompletion
-        {
-            'hrsh7th/nvim-cmp',
-            dependencies = {
-                { 'L3MON4D3/LuaSnip' },
-            }
-        }
+        { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
+        { 'williamboman/mason.nvim' },
+        { 'williamboman/mason-lspconfig.nvim' },
+        { 'neovim/nvim-lspconfig' },
+        { 'hrsh7th/cmp-nvim-lsp' },
+        { 'hrsh7th/nvim-cmp' },
+        { 'L3MON4D3/LuaSnip' }
     },
     {
         'github/copilot.vim'
