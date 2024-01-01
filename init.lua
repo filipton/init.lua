@@ -1,4 +1,3 @@
-require("notpilif")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -12,89 +11,36 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+require("vim-options")
+
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
 require("lazy").setup({
-    { "bluz71/vim-moonfly-colors", name = "moonfly", lazy = true, priority = 1000 },
+    { import = "plugins" },
     {
-        'glepnir/dashboard-nvim',
-        event = 'VimEnter',
+        'mbbill/undotree',
         config = function()
-            require('dashboard').setup {
-                -- config
-            }
-        end,
-        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
-    },
-    {
-        'nvim-telescope/telescope.nvim',
-        dependencies = { { 'nvim-lua/plenary.nvim' } },
-        config = function()
-            require("telescope").setup({
-                defaults = {
-                    file_ignore_patterns = { "node_modules/", ".git/", "target/" },
-                }
-            })
+            vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end
     },
     {
-        'nvim-treesitter/nvim-treesitter',
-        build = function()
-            -- vim.cmd([[TSUpdate]])
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
+        'github/copilot.vim',
+        config = function()
+            vim.g.copilot_assume_mapped = true
         end
-    },
-    {
-        'nvim-treesitter/nvim-treesitter-context'
-    },
-    {
-        'nvim-treesitter/playground'
-    },
-    {
-        'mbbill/undotree'
-    },
-    {
-        'tpope/vim-fugitive'
-    },
-    {
-        { 'VonHeikemen/lsp-zero.nvim',        branch = 'v3.x' },
-        { 'williamboman/mason.nvim' },
-        { 'williamboman/mason-lspconfig.nvim' },
-        { 'neovim/nvim-lspconfig' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/nvim-cmp' },
-        { 'L3MON4D3/LuaSnip' }
-    },
-    {
-        'github/copilot.vim'
     },
     {
         'j-hui/fidget.nvim'
-    },
-    {
-        'nvim-lualine/lualine.nvim',
-        -- event = { 'VimEnter' },
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-        }
-    },
-    {
-        'linrongbin16/lsp-progress.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            require('lsp-progress').setup()
-        end
-    },
-    {
-        'ThePrimeagen/harpoon'
-    },
-    {
-        'folke/trouble.nvim',
-        requires = 'nvim-tree/nvim-web-devicons',
-        config = function()
-            require("trouble").setup({})
-        end
     }
+    -- {
+    --     'folke/trouble.nvim',
+    --     requires = 'nvim-tree/nvim-web-devicons',
+    --     config = function()
+    --         require("trouble").setup({})
+    --
+    --         vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+    --             { silent = true, noremap = true })
+    --     end
+    -- }
 })
