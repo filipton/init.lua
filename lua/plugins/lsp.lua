@@ -26,8 +26,7 @@ local function setupLsp()
 
     require('mason').setup({})
     require('mason-lspconfig').setup({
-        ensure_installed = { 'tsserver', 'rust_analyzer', 'html', 'tailwindcss', 'svelte', 'clangd',
-            'docker_compose_language_service', 'dockerls' },
+        ensure_installed = { 'lua_ls', 'tsserver', 'rust_analyzer', 'html', 'tailwindcss', 'svelte', 'clangd' },
         handlers = {
             lsp.default_setup,
             lua_ls = function()
