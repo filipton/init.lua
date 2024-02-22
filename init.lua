@@ -32,6 +32,14 @@ require("lazy").setup({
     },
     {
         'j-hui/fidget.nvim'
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        opts = {},
+        setup = function()
+            require("todo-comments").setup({})
+        end
     }
     -- {
     --     'folke/trouble.nvim',
