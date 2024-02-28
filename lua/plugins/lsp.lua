@@ -1,4 +1,12 @@
 local function setupLsp()
+    local handle = io.popen('uname -m')
+    if handle == nil then
+        return
+    end
+    local arch = handle:read("*a")
+    handle:close()
+    arch = string.gsub(arch, "\n", "")
+
     local lsp = require('lsp-zero')
 
     lsp.on_attach(function(client, bufnr)
@@ -24,9 +32,19 @@ local function setupLsp()
         }
     end
 
+    local ensure_installed = { 'lua_ls', 'tsserver', 'rust_analyzer', 'html', 'tailwindcss', 'svelte' }
+    if arch == "aarch64" then
+        require('lspconfig').clangd.setup {
+            cmd = { "clangd", "--background-index" },
+            filetypes = { "c", "cpp", "objc", "objcpp" },
+        }
+    else
+        table.insert(ensure_installed, 'clangd')
+    end
+
     require('mason').setup({})
     require('mason-lspconfig').setup({
-        ensure_installed = { 'lua_ls', 'tsserver', 'rust_analyzer', 'html', 'tailwindcss', 'svelte', 'clangd' },
+        ensure_installed = ensure_installed,
         handlers = {
             lsp.default_setup,
             lua_ls = function()

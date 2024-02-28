@@ -40,6 +40,13 @@ require("lazy").setup({
         setup = function()
             require("todo-comments").setup({})
         end
+    },
+    {
+        "saecki/crates.nvim",
+        tag = "stable",
+        config = function()
+            require("crates").setup()
+        end
     }
     -- {
     --     'folke/trouble.nvim',
