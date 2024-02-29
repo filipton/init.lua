@@ -6,10 +6,11 @@ sudo pacman --needed --noconfirm -S base-devel cmake unzip ninja tree-sitter cur
 sudo rm -f /usr/local/lib/nvim/parser/*
 
 git clone https://github.com/neovim/neovim
-cd neovim && make CMAKE_BUILD_YPE=RelWithDebInfo
+cd neovim
 #git checkout release-0.9
 git pull && git submodule update --init --recursive
 
+make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
 
 sudo mv ./build/bin/nvim /usr/bin/nvim
