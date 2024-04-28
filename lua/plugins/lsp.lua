@@ -84,7 +84,14 @@ local function setupLsp()
             -- Navigate between snippet placeholder
             ['<C-f>'] = cmp_action.luasnip_jump_forward(),
             ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-        }
+        },
+        sources = {
+            { name = 'copilot' },
+            { name = 'nvim_lsp' },
+            { name = 'path' },
+            { name = 'luasnip' },
+            { name = 'buffer' },
+        },
     })
 
     lsp.on_attach(function(client, bufnr)

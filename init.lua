@@ -24,10 +24,28 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
         end
     },
+    -- {
+    --     'github/copilot.vim',
+    --     config = function()
+    --         vim.g.copilot_assume_mapped = true
+    --     end
+    -- },
     {
-        'github/copilot.vim',
+        'zbirenbaum/copilot.lua',
+        cmd = "Copilot",
+        event = "InsertEnter",
         config = function()
-            vim.g.copilot_assume_mapped = true
+            require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+            })
+        end,
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        dependencies = { 'zbirenbaum/copilot.lua' },
+        config = function()
+            require("copilot_cmp").setup()
         end
     },
     {
