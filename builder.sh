@@ -7,10 +7,9 @@ sudo rm -f /usr/local/lib/nvim/parser/*
 
 git clone https://github.com/neovim/neovim
 cd neovim
-git checkout release-0.9
+#git checkout release-0.10
 git pull && git submodule update --init --recursive
 
-make CMAKE_BUILD_TYPE=RelWithDebInfo
+make CMAKE_BUILD_TYPE=Release
 sudo make install
-
 sudo mv ./build/bin/nvim /usr/bin/nvim
