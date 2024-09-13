@@ -9,12 +9,37 @@ local function setupLsp()
 
     local lsp = require('lsp-zero')
 
-    lsp.on_attach(function(client, bufnr)
+    local lsp_attach = function(client, bufnr)
         lsp.default_keymaps({ buffer = bufnr })
-    end)
+        local opts = { buffer = bufnr, remap = false }
+
+        if client.name == "eslint" then
+            vim.cmd.LspStop('eslint')
+            return
+        end
+
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
+        vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
+        vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+    end
+
+    lsp.extend_lspconfig({
+        capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        lsp_attach = lsp_attach,
+        float_border = 'rounded',
+        sign_text = true,
+    })
 
     lsp.extend_cmp()
 
+    --[[
     local function setupArduinoLsp()
         local fqbnpath = vim.fn.getcwd() .. '/FQBN'
         local fqbn = vim.fn.filereadable(fqbnpath) == 1 and vim.fn.readfile(fqbnpath)[1] or nil
@@ -31,8 +56,9 @@ local function setupLsp()
             }
         }
     end
+    ]] --
 
-    local ensure_installed = { 'lua_ls', 'tsserver', 'rust_analyzer', 'html', 'tailwindcss', 'svelte' }
+    local ensure_installed = { 'lua_ls', 'rust_analyzer' }
     if arch == "aarch64" then
         require('lspconfig').clangd.setup {
             cmd = { "clangd", "--background-index" },
@@ -51,9 +77,11 @@ local function setupLsp()
                 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
             end,
             arduino_language_server = function()
+                --[[
                 if vim.fn.executable('arduino-language-server') == 1 then
                     setupArduinoLsp()
                 end
+                ]] --
             end,
         },
     })
@@ -93,26 +121,6 @@ local function setupLsp()
             { name = 'buffer' },
         },
     })
-
-    lsp.on_attach(function(client, bufnr)
-        local opts = { buffer = bufnr, remap = false }
-
-        if client.name == "eslint" then
-            vim.cmd.LspStop('eslint')
-            return
-        end
-
-        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-        vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-        vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-        vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-    end)
 
     vim.diagnostic.config({
         virtual_text = true,
