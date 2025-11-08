@@ -74,14 +74,8 @@ local function setupLsp()
         handlers = {
             lsp.default_setup,
             lua_ls = function()
-                require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-            end,
-            arduino_language_server = function()
-                --[[
-                if vim.fn.executable('arduino-language-server') == 1 then
-                    setupArduinoLsp()
-                end
-                ]] --
+                vim.lsp.config("lua_ls", lsp.nvim_lua_ls())
+                vim.lsp.enable({ "lua_ls" })
             end,
         },
     })
@@ -134,8 +128,8 @@ return {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v4.x',
     },
-    { 'williamboman/mason.nvim' },
-    { 'williamboman/mason-lspconfig.nvim' },
+    { 'mason-org/mason.nvim' },
+    { 'mason-org/mason-lspconfig.nvim' },
     { 'hrsh7th/cmp-nvim-lsp' },
     { 'hrsh7th/nvim-cmp' },
     { 'L3MON4D3/LuaSnip' },
