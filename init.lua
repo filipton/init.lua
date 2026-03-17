@@ -66,6 +66,13 @@ require("lazy").setup({
         config = function()
             require("crates").setup()
         end
+    },
+    {
+      	"lervag/vimtex",
+      	lazy = false,
+      	init = function()
+        	vim.g.vimtex_view_method = "skim"
+      	end
     }
     -- {
     --     'folke/trouble.nvim',
