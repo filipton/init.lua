@@ -27,6 +27,9 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+-- Load per-project .nvim.lua files
+vim.o.exrc = true
+
 -- REMAPS
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
