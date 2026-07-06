@@ -10,7 +10,6 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
-vim.deprecate = function() end
 
 require("vim-options")
 
@@ -50,15 +49,13 @@ require("lazy").setup({
         end
     },
     {
-        'j-hui/fidget.nvim'
+        'j-hui/fidget.nvim',
+        opts = {},
     },
     {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
-        setup = function()
-            require("todo-comments").setup({})
-        end
     },
     {
         "saecki/crates.nvim",
