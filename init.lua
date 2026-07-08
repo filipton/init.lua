@@ -65,11 +65,11 @@ require("lazy").setup({
         end
     },
     {
-      	"lervag/vimtex",
-      	lazy = false,
-      	init = function()
-        	vim.g.vimtex_view_method = "skim"
-      	end
+        "lervag/vimtex",
+        lazy = false,
+        init = function()
+            vim.g.vimtex_view_method = "skim"
+        end
     }
     -- {
     --     'folke/trouble.nvim',
