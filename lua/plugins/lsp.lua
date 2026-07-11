@@ -42,11 +42,11 @@ local function setupLsp()
         },
     })
 
-    -- On aarch64 mason binaries can be unavailable; use the system clangd.
-    local is_aarch64 = vim.uv.os_uname().machine == "aarch64"
+    local platform = require("util.platform")
 
+    -- Prefer system clangd on ARM (esp. macOS), where Mason packages are flakier.
     local ensure_installed = { "lua_ls", "rust_analyzer" }
-    if is_aarch64 then
+    if platform.is_arm then
         vim.lsp.config("clangd", {
             cmd = { "clangd", "--background-index" },
         })
@@ -55,7 +55,10 @@ local function setupLsp()
         table.insert(ensure_installed, "clangd")
     end
 
-    require("mason").setup({})
+    -- Arch-specific Mason root so Rosetta x86_64 and native arm never share binaries.
+    require("mason").setup({
+        install_root_dir = platform.data_dir("mason"),
+    })
 
     -- mason-lspconfig v2 automatically runs vim.lsp.enable() for every server
     -- installed through mason, so `:MasonInstall <server>` (or the :Mason UI)

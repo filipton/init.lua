@@ -68,9 +68,17 @@ require("lazy").setup({
         "lervag/vimtex",
         lazy = false,
         init = function()
-            vim.g.vimtex_view_method = "skim"
-        end
-    }
+            local platform = require("util.platform")
+            -- Skim is macOS-only; on Linux prefer zathura if present.
+            if platform.is_mac then
+                vim.g.vimtex_view_method = "skim"
+            elseif vim.fn.executable("zathura") == 1 then
+                vim.g.vimtex_view_method = "zathura"
+            else
+                vim.g.vimtex_view_method = "general"
+            end
+        end,
+    },
     -- {
     --     'folke/trouble.nvim',
     --     requires = 'nvim-tree/nvim-web-devicons',
