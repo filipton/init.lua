@@ -40,7 +40,7 @@ local function scrub_incompatible_parsers()
                     local path = dir .. "/" .. name
                     if not parser_matches_arch(path) then
                         vim.fn.delete(path)
-                        table.insert(removed, name:gsub("%.so$", ""))
+                        table.insert(removed, (name:gsub("%.so$", "")))
                     end
                 end
             end
