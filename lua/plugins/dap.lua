@@ -1,10 +1,25 @@
 return {
     {
         "Civitasv/cmake-tools.nvim",
+        ft = { "c", "cpp", "objc", "objcpp", "cuda", "cmake" },
+        cmd = {
+            "CMakeGenerate",
+            "CMakeBuild",
+            "CMakeRun",
+            "CMakeDebug",
+            "CMakeClean",
+            "CMakeInstall",
+            "CMakeSelectBuildTarget",
+            "CMakeSelectLaunchTarget",
+            "CMakeOpen",
+            "CMakeClose",
+            "CMakeStop",
+        },
         opts = {},
     },
     {
         "mfussenegger/nvim-dap",
+        lazy = true,
     },
     {
         "nvim-neotest/neotest",
@@ -66,6 +81,15 @@ return {
             "mfussenegger/nvim-dap",
             "nvim-neotest/nvim-nio",
             "Civitasv/cmake-tools.nvim",
+        },
+        keys = {
+            { "<F5>", desc = "DAP continue" },
+            { "<F10>", desc = "DAP step over" },
+            { "<F11>", desc = "DAP step into" },
+            { "<F12>", desc = "DAP step out" },
+            { "<leader>b", desc = "DAP toggle breakpoint" },
+            { "<leader>dx", desc = "DAP terminate" },
+            { "<leader>du", desc = "DAP UI toggle" },
         },
         config = function()
             local dap, dapui = require("dap"), require("dapui")

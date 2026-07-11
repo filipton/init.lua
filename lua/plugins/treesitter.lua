@@ -6,19 +6,38 @@ local parser_install_dir = platform.data_dir("treesitter")
 vim.fn.mkdir(parser_install_dir .. "/parser", "p")
 vim.opt.runtimepath:prepend(parser_install_dir)
 
+local function u32le(bytes, i)
+    local b1, b2, b3, b4 = bytes:byte(i, i + 3)
+    return b1 + b2 * 256 + b3 * 65536 + b4 * 16777216
+end
+
 --- Return false when a macOS .so was built for the other CPU (Rosetta vs native).
+--- Reads the Mach-O header directly — spawning `file` per parser cost ~20ms each.
 local function parser_matches_arch(path)
     if not platform.is_mac then
         return true
     end
-    local info = vim.fn.system({ "file", "-b", path })
-    if vim.v.shell_error ~= 0 then
+    local f = io.open(path, "rb")
+    if not f then
         return true
     end
-    if platform.arch == "aarch64" then
-        return info:find("arm64", 1, true) ~= nil
+    local hdr = f:read(8)
+    f:close()
+    if not hdr or #hdr < 8 then
+        return true
     end
-    return info:find("x86_64", 1, true) ~= nil
+
+    -- Only handle native-endian thin MH_MAGIC_64 (what treesitter ships).
+    if u32le(hdr, 1) ~= 0xFEEDFACF then
+        return true
+    end
+
+    local cputype = u32le(hdr, 5)
+    -- CPU_TYPE_ARM64 = 0x0100000C, CPU_TYPE_X86_64 = 0x01000007
+    if platform.arch == "aarch64" then
+        return cputype == 0x0100000C
+    end
+    return cputype == 0x01000007
 end
 
 --- Drop wrong-arch parsers from known install locations so rtp never picks them up.
@@ -54,7 +73,12 @@ local function scrub_incompatible_parsers()
     end
 end
 
-scrub_incompatible_parsers()
+-- Defer so the UI isn't blocked; Mach-O check is cheap but still not needed
+-- before the first draw.
+vim.api.nvim_create_autocmd("UIEnter", {
+    once = true,
+    callback = scrub_incompatible_parsers,
+})
 
 return {
     {
