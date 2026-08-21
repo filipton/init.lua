@@ -45,6 +45,25 @@ vim.keymap.set("n", "N", "Nzzzv")
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
+-- Always route the system clipboard through tmux (`load-buffer -w` emits an
+-- OSC 52 sequence to every currently-attached client):
+--   * attached locally (ghostty on this machine) -> THIS machine's clipboard
+--   * attached over ssh -> forwarded through the outer tmux -> local clipboard
+-- so the destination follows wherever the session is being viewed, with no
+-- need to detect ssh at nvim startup. Requires `set -g set-clipboard on`.
+vim.g.clipboard = {
+	name = "tmux-osc52",
+	copy = {
+		["+"] = { "tmux", "load-buffer", "-w", "-" },
+		["*"] = { "tmux", "load-buffer", "-w", "-" },
+	},
+	paste = {
+		["+"] = { "tmux", "save-buffer", "-" },
+		["*"] = { "tmux", "save-buffer", "-" },
+	},
+	cache_enabled = 0,
+}
+
 -- next greatest remap ever : asbjornHaland
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
